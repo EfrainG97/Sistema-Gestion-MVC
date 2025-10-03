@@ -2,10 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using P2_SistemaDeGestion.Data;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ClienteContext>(options =>
+builder.Services.AddDbContext<SistemaDBContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("ClienteContext") ?? throw new InvalidOperationException("Connection string 'ClienteContext' not found.")));
-builder.Services.AddDbContext<ProductoContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("ProductoContext") ?? throw new InvalidOperationException("Connection string 'ProductoContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,7 +14,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

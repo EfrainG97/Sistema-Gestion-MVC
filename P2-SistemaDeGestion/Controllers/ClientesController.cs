@@ -12,9 +12,9 @@ namespace P2_SistemaDeGestion.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly ClienteContext _context;
+        private readonly SistemaDBContext _context;
 
-        public ClientesController(ClienteContext context)
+        public ClientesController(SistemaDBContext context)
         {
             _context = context;
         }

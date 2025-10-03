@@ -7,7 +7,7 @@
 namespace P2_SistemaDeGestion.Migrations
 {
     /// <inheritdoc />
-    public partial class _03102025Clientes : Migration
+    public partial class InitialUnified : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,6 +28,22 @@ namespace P2_SistemaDeGestion.Migrations
                     table.PrimaryKey("PK_Cliente", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Producto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(type: "TEXT", nullable: true),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: true),
+                    Precio = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Existencia = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Producto", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Cliente",
                 columns: new[] { "Id", "ApellidoMaterno", "ApellidoPaterno", "Nombre", "Telefono" },
@@ -39,6 +55,18 @@ namespace P2_SistemaDeGestion.Migrations
                     { 4, "Vega", "Torres", "María", "555-4321" },
                     { 5, "Ruiz", "Hernández", "Carlos", "555-2468" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Producto",
+                columns: new[] { "Id", "Descripcion", "Existencia", "Nombre", "Precio" },
+                values: new object[,]
+                {
+                    { 1, "Portátil 15''", 10, "Laptop", 12000m },
+                    { 2, "Mouse óptico", 50, "Mouse", 250m },
+                    { 3, "Teclado mecánico", 30, "Teclado", 800m },
+                    { 4, "Monitor 24''", 15, "Monitor", 3500m },
+                    { 5, "Impresora láser", 8, "Impresora", 2200m }
+                });
         }
 
         /// <inheritdoc />
@@ -46,6 +74,9 @@ namespace P2_SistemaDeGestion.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "Producto");
         }
     }
 }

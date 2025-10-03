@@ -8,8 +8,8 @@ using P2_SistemaDeGestion.Data;
 
 namespace P2_SistemaDeGestion.Migrations
 {
-    [DbContext(typeof(ClienteContext))]
-    partial class ClienteContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SistemaDBContext))]
+    partial class SistemaDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,71 @@ namespace P2_SistemaDeGestion.Migrations
                             ApellidoPaterno = "Hernández",
                             Nombre = "Carlos",
                             Telefono = "555-2468"
+                        });
+                });
+
+            modelBuilder.Entity("P2_SistemaDeGestion.Models.Producto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Existencia")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Producto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "Portátil 15''",
+                            Existencia = 10,
+                            Nombre = "Laptop",
+                            Precio = 12000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "Mouse óptico",
+                            Existencia = 50,
+                            Nombre = "Mouse",
+                            Precio = 250m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descripcion = "Teclado mecánico",
+                            Existencia = 30,
+                            Nombre = "Teclado",
+                            Precio = 800m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descripcion = "Monitor 24''",
+                            Existencia = 15,
+                            Nombre = "Monitor",
+                            Precio = 3500m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descripcion = "Impresora láser",
+                            Existencia = 8,
+                            Nombre = "Impresora",
+                            Precio = 2200m
                         });
                 });
 #pragma warning restore 612, 618

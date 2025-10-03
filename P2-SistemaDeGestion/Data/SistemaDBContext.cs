@@ -7,18 +7,27 @@ using P2_SistemaDeGestion.Models;
 
 namespace P2_SistemaDeGestion.Data
 {
-    public class ProductoContext : DbContext
+    public class SistemaDBContext : DbContext
     {
-        public ProductoContext (DbContextOptions<ProductoContext> options)
+        public SistemaDBContext (DbContextOptions<SistemaDBContext> options)
             : base(options)
         {
         }
 
+        public DbSet<P2_SistemaDeGestion.Models.Cliente> Cliente { get; set; } = default!;
         public DbSet<P2_SistemaDeGestion.Models.Producto> Producto { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Cliente>().HasData(
+                new Cliente { Id = 1, Nombre = "Juan", ApellidoPaterno = "Pérez", ApellidoMaterno = "Gómez", Telefono = "555-1234" },
+                new Cliente { Id = 2, Nombre = "Ana", ApellidoPaterno = "López", ApellidoMaterno = "Martínez", Telefono = "555-5678" },
+                new Cliente { Id = 3, Nombre = "Luis", ApellidoPaterno = "Ramírez", ApellidoMaterno = "Santos", Telefono = "555-8765" },
+                new Cliente { Id = 4, Nombre = "María", ApellidoPaterno = "Torres", ApellidoMaterno = "Vega", Telefono = "555-4321" },
+                new Cliente { Id = 5, Nombre = "Carlos", ApellidoPaterno = "Hernández", ApellidoMaterno = "Ruiz", Telefono = "555-2468" }
+            );
 
             modelBuilder.Entity<Producto>().HasData(
                 new Producto { Id = 1, Nombre = "Laptop", Descripcion = "Portátil 15''", Precio = 12000, Existencia = 10 },

@@ -7,17 +7,82 @@ using P2_SistemaDeGestion.Data;
 
 #nullable disable
 
-namespace P2_SistemaDeGestion.Migrations.Producto
+namespace P2_SistemaDeGestion.Migrations
 {
-    [DbContext(typeof(ProductoContext))]
-    [Migration("20251003060518_03102025Productos")]
-    partial class _03102025Productos
+    [DbContext(typeof(SistemaDBContext))]
+    [Migration("20251003235328_InitialUnified")]
+    partial class InitialUnified
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.20");
+
+            modelBuilder.Entity("P2_SistemaDeGestion.Models.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ApellidoMaterno")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ApellidoPaterno")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cliente");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApellidoMaterno = "Gómez",
+                            ApellidoPaterno = "Pérez",
+                            Nombre = "Juan",
+                            Telefono = "555-1234"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApellidoMaterno = "Martínez",
+                            ApellidoPaterno = "López",
+                            Nombre = "Ana",
+                            Telefono = "555-5678"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ApellidoMaterno = "Santos",
+                            ApellidoPaterno = "Ramírez",
+                            Nombre = "Luis",
+                            Telefono = "555-8765"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ApellidoMaterno = "Vega",
+                            ApellidoPaterno = "Torres",
+                            Nombre = "María",
+                            Telefono = "555-4321"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ApellidoMaterno = "Ruiz",
+                            ApellidoPaterno = "Hernández",
+                            Nombre = "Carlos",
+                            Telefono = "555-2468"
+                        });
+                });
 
             modelBuilder.Entity("P2_SistemaDeGestion.Models.Producto", b =>
                 {

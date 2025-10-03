@@ -12,9 +12,9 @@ namespace P2_SistemaDeGestion.Controllers
 {
     public class ProductosController : Controller
     {
-        private readonly ProductoContext _context;
+        private readonly SistemaDBContext _context;
 
-        public ProductosController(ProductoContext context)
+        public ProductosController(SistemaDBContext context)
         {
             _context = context;
         }
