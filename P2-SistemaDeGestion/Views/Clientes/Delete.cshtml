@@ -1,0 +1,51 @@
+﻿@model P2_SistemaDeGestion.Models.Cliente
+
+@{
+    ViewData["Title"] = "Eliminar Cliente";
+}
+
+<div class="container">
+    <h1 class="mb-4 text-danger">Eliminar Cliente</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>¿Está seguro que desea eliminar este cliente?</strong>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Cliente a Eliminar</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4 fw-bold">Nombre:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
+                        
+                        <dt class="col-sm-4 fw-bold">Apellido Paterno:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ApellidoPaterno)</dd>
+                        
+                        <dt class="col-sm-4 fw-bold">Apellido Materno:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ApellidoMaterno)</dd>
+                        
+                        <dt class="col-sm-4 fw-bold">Teléfono:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Telefono)</dd>
+                    </dl>
+                    
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-danger me-md-2">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
