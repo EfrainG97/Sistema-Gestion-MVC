@@ -81,6 +81,47 @@ namespace P2_SistemaDeGestion.Migrations
                         });
                 });
 
+            modelBuilder.Entity("P2_SistemaDeGestion.Models.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Marca");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "HP"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "Lenovo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descripcion = "Logitech"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descripcion = "DELL"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descripcion = "Nike"
+                        });
+                });
+
             modelBuilder.Entity("P2_SistemaDeGestion.Models.Producto", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +132,9 @@ namespace P2_SistemaDeGestion.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Existencia")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdMarca")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nombre")
@@ -109,6 +153,7 @@ namespace P2_SistemaDeGestion.Migrations
                             Id = 1,
                             Descripcion = "Portátil 15''",
                             Existencia = 10,
+                            IdMarca = 1,
                             Nombre = "Laptop",
                             Precio = 12000m
                         },
@@ -117,6 +162,7 @@ namespace P2_SistemaDeGestion.Migrations
                             Id = 2,
                             Descripcion = "Mouse óptico",
                             Existencia = 50,
+                            IdMarca = 2,
                             Nombre = "Mouse",
                             Precio = 250m
                         },
@@ -125,6 +171,7 @@ namespace P2_SistemaDeGestion.Migrations
                             Id = 3,
                             Descripcion = "Teclado mecánico",
                             Existencia = 30,
+                            IdMarca = 3,
                             Nombre = "Teclado",
                             Precio = 800m
                         },
@@ -133,6 +180,7 @@ namespace P2_SistemaDeGestion.Migrations
                             Id = 4,
                             Descripcion = "Monitor 24''",
                             Existencia = 15,
+                            IdMarca = 4,
                             Nombre = "Monitor",
                             Precio = 3500m
                         },
@@ -141,6 +189,7 @@ namespace P2_SistemaDeGestion.Migrations
                             Id = 5,
                             Descripcion = "Impresora láser",
                             Existencia = 8,
+                            IdMarca = 4,
                             Nombre = "Impresora",
                             Precio = 2200m
                         });

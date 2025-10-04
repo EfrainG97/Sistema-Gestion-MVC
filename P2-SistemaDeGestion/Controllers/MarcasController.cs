@@ -7,38 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using P2_SistemaDeGestion.Data;
 using P2_SistemaDeGestion.Models;
-using P2_SistemaDeGestion.ViewModel;
 
 namespace P2_SistemaDeGestion.Controllers
 {
-    public class ProductosController : Controller
+    public class MarcasController : Controller
     {
         private readonly SistemaDBContext _context;
 
-        public ProductosController(SistemaDBContext context)
+        public MarcasController(SistemaDBContext context)
         {
             _context = context;
         }
 
-        // GET: Productos
+        // GET: Marcas
         public async Task<IActionResult> Index()
         {
-            var productos = await (from p in _context.Producto
-                                   join m in _context.Marca on p.IdMarca equals m.Id
-                                   select new ProductoConMarca
-                                   {
-                                       Id = p.Id,
-                                       Nombre = p.Nombre,
-                                       Descripcion = p.Descripcion,
-                                       Precio = p.Precio,
-                                       Existencia = p.Existencia,
-                                       MarcaDescripcion = m.Descripcion
-                                   }).ToListAsync();
-
-            return View(productos);
+            return View(await _context.Marca.ToListAsync());
         }
 
-        // GET: Productos/Details/5
+        // GET: Marcas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,34 +33,39 @@ namespace P2_SistemaDeGestion.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Producto
+            var marca = await _context.Marca
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (producto == null)
+            if (marca == null)
             {
                 return NotFound();
             }
 
-            return View(producto);
+            return View(marca);
         }
 
+        // GET: Marcas/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: Marcas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Existencia")] Producto producto)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion")] Marca marca)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(producto);
+                _context.Add(marca);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            return View(marca);
         }
 
+        // GET: Marcas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,19 +73,22 @@ namespace P2_SistemaDeGestion.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Producto.FindAsync(id);
-            if (producto == null)
+            var marca = await _context.Marca.FindAsync(id);
+            if (marca == null)
             {
                 return NotFound();
             }
-            return View(producto);
+            return View(marca);
         }
 
+        // POST: Marcas/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,Precio,Existencia")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion")] Marca marca)
         {
-            if (id != producto.Id)
+            if (id != marca.Id)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace P2_SistemaDeGestion.Controllers
             {
                 try
                 {
-                    _context.Update(producto);
+                    _context.Update(marca);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.Id))
+                    if (!MarcaExists(marca.Id))
                     {
                         return NotFound();
                     }
@@ -118,9 +113,10 @@ namespace P2_SistemaDeGestion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            return View(marca);
         }
 
+        // GET: Marcas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,34 +124,34 @@ namespace P2_SistemaDeGestion.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Producto
+            var marca = await _context.Marca
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (producto == null)
+            if (marca == null)
             {
                 return NotFound();
             }
 
-            return View(producto);
+            return View(marca);
         }
 
+        // POST: Marcas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producto = await _context.Producto.FindAsync(id);
-            if (producto != null)
+            var marca = await _context.Marca.FindAsync(id);
+            if (marca != null)
             {
-                _context.Producto.Remove(producto);
+                _context.Marca.Remove(marca);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductoExists(int id)
+        private bool MarcaExists(int id)
         {
-            return _context.Producto.Any(e => e.Id == id);
+            return _context.Marca.Any(e => e.Id == id);
         }
-
     }
 }

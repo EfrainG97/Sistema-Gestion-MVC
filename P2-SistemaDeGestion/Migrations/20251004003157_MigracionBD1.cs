@@ -7,7 +7,7 @@
 namespace P2_SistemaDeGestion.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialUnified : Migration
+    public partial class MigracionBD1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,11 +29,25 @@ namespace P2_SistemaDeGestion.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Marca",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Marca", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Producto",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    IdMarca = table.Column<int>(type: "INTEGER", nullable: false),
                     Nombre = table.Column<string>(type: "TEXT", nullable: true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: true),
                     Precio = table.Column<decimal>(type: "TEXT", nullable: false),
@@ -57,15 +71,27 @@ namespace P2_SistemaDeGestion.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Producto",
-                columns: new[] { "Id", "Descripcion", "Existencia", "Nombre", "Precio" },
+                table: "Marca",
+                columns: new[] { "Id", "Descripcion" },
                 values: new object[,]
                 {
-                    { 1, "Portátil 15''", 10, "Laptop", 12000m },
-                    { 2, "Mouse óptico", 50, "Mouse", 250m },
-                    { 3, "Teclado mecánico", 30, "Teclado", 800m },
-                    { 4, "Monitor 24''", 15, "Monitor", 3500m },
-                    { 5, "Impresora láser", 8, "Impresora", 2200m }
+                    { 1, "HP" },
+                    { 2, "Lenovo" },
+                    { 3, "Logitech" },
+                    { 4, "DELL" },
+                    { 5, "Nike" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Producto",
+                columns: new[] { "Id", "Descripcion", "Existencia", "IdMarca", "Nombre", "Precio" },
+                values: new object[,]
+                {
+                    { 1, "Portátil 15''", 10, 1, "Laptop", 12000m },
+                    { 2, "Mouse óptico", 50, 2, "Mouse", 250m },
+                    { 3, "Teclado mecánico", 30, 3, "Teclado", 800m },
+                    { 4, "Monitor 24''", 15, 4, "Monitor", 3500m },
+                    { 5, "Impresora láser", 8, 4, "Impresora", 2200m }
                 });
         }
 
@@ -74,6 +100,9 @@ namespace P2_SistemaDeGestion.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Cliente");
+
+            migrationBuilder.DropTable(
+                name: "Marca");
 
             migrationBuilder.DropTable(
                 name: "Producto");
